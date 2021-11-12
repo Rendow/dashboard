@@ -1,0 +1,40 @@
+
+.dashboard{
+
+  margin-top: 90px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h1{
+    font-size: 24px;
+    font-weight: 700;
+    align-self: flex-start;
+  }
+  input{
+    border: 1px solid black;
+    margin: 20px 0;
+    width: 100%;
+  }
+  ul{
+    border: 1px solid black;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    li{
+      margin: 10px 0;
+      border: 1px solid black;
+      width: 100%;
+
+    }
+  }
+}
+.test {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 20px;
+
+}

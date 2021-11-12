@@ -1,34 +1,64 @@
 import {createContext, ReactNode, useContext, useReducer} from "react";
-import {ActionType, InitialStateType, reducer} from "./reducer";
+import {ActionType, InitialStateType, reducer, Site} from "./reducer";
 
 
+// const defaultState = {
+//     state: {
+//             tests: [
+//                 {
+//                     id: 1,
+//                     name: "Prototype of the new map",
+//                     type: "CLASSIC",
+//                     status: "PAUSED",
+//                     siteId: 2
+//                 },
+//                 {
+//                     id: 2,
+//                     name: "Dark theme test",
+//                     type: "MVT",
+//                     status: "DRAFT",
+//                     siteId: 3
+//                 },
+//                 {
+//                     id: 3,
+//                     name: "New Year's Sale",
+//                     type: "MVT",
+//                     status: "STOPPED",
+//                     siteId: 1
+//                 },
+//
+//             ],
+//             // sites:[] as Site[] ,
+//         }
+// };
 const defaultState = {
-    state: [
-        {
-            id: 1,
-            name: "Prototype of the new map",
-            type: "CLASSIC",
-            status: "PAUSED",
-            siteId: 2
-        },
-        {
-            id: 2,
-            name: "Dark theme test",
-            type: "MVT",
-            status: "DRAFT",
-            siteId: 3
-        },
-        {
-            id: 3,
-            name: "New Year's Sale",
-            type: "MVT",
-            status: "STOPPED",
-            siteId: 1
-        },
+    tests:  [
+            {
+                id: 1,
+                name: "Prototype of the new map",
+                type: "CLASSIC",
+                status: "PAUSED",
+                siteId: 2
+            },
+            {
+                id: 2,
+                name: "Dark theme test",
+                type: "MVT",
+                status: "DRAFT",
+                siteId: 3
+            },
+            {
+                id: 3,
+                name: "New Year's Sale",
+                type: "MVT",
+                status: "STOPPED",
+                siteId: 1
+            },
 
-    ]
+        ],
+    sites:[]
+
 };
-
 export const Context = createContext <(InitialStateType &
     { dispatch: (action: ActionType) => void }) | null >(null);
 

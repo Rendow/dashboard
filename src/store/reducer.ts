@@ -1,5 +1,4 @@
 
-
 enum Type {
     CLASSIC = "CLASSIC",
     SERVER_SIDE = "SERVER_SIDE",
@@ -13,9 +12,9 @@ enum Status {
     STOPPED = "STOPPED",
 }
 
-interface Site {
-    id: number;
-    url: string;
+export type Site = {
+    id: number,
+    url: string
 }
 export type TestType = {
     id: number;
@@ -24,20 +23,47 @@ export type TestType = {
     status: string;
     siteId: number;
 }
-export type InitialStateType = {
-    state:TestType[]
+
+export type InitialStateType =  {
+        tests:TestType[],
+        sites:Site[]
 }
-export type ActionType = ReturnType<typeof loadStateAC>
+export type ActionType = ReturnType<typeof setTestsAC>
+   | ReturnType<typeof setTestAC>
+   | ReturnType<typeof setSitesAC>
+    | ReturnType<typeof setSiteAC>
 
 // actions
-export const loadStateAC = () => ({ type: 'TODO/LOAD-STATE' } as const);
+export const setTestsAC = (data:TestType[]) => ({ type: 'SET-TESTS',data } as const);
+export const setTestAC = (data:TestType) => ({ type: 'SET-TEST',data } as const);
+
+export const setSitesAC = (data:Site[]) => ({ type: 'SET-SITES',data } as const);
+export const setSiteAC = (data:Site ) => ({ type: 'SET-SITE',data } as const);
 
 
-export function reducer(state: InitialStateType, action: ActionType) {
+export function reducer(state: InitialStateType, action: ActionType):InitialStateType {
 
     switch (action.type) {
-        case "TODO/LOAD-STATE":
-            return state
+        case "SET-TESTS":
+            return {
+                ...state,
+                tests: action.data
+            }
+        case "SET-TEST":
+            return {
+                ...state,
+                tests:[action.data]
+            }
+        case "SET-SITES":
+            return {
+                ...state,
+                   sites:action.data
+            }
+        case "SET-SITE":
+            return {
+                ...state,
+                sites:[action.data]
+            }
         default:
             throw new Error();
     }

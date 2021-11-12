@@ -1,6 +1,7 @@
+@import "/src/common/styles/mixins";
+@import "/src/common/styles/variables";
 
 .dashboard{
-
   margin-top: 90px;
   border: 1px solid black;
   display: flex;
@@ -17,12 +18,13 @@
     margin: 20px 0;
     width: 100%;
   }
+  .filterBar{
+    width: 100%;
+    @include flex(space-between,center, row);
+  }
   ul{
     border: 1px solid black;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    @include flex(center,center, column);
     width: 100%;
     li{
       margin: 10px 0;

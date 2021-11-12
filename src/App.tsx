@@ -1,7 +1,7 @@
 import React, {lazy, Suspense } from 'react';
 import './App.css';
 import {NavLink, Route} from "react-router-dom";
-import {Preloader} from "./common/Preloader";
+import {Preloader} from "./common/Preloader/Preloader";
 import { Redirect } from 'react-router-dom';
 import { Switch } from 'react-router-dom';
 import {Dashboard} from "./components/Dashboard/Dashboard";

@@ -1,0 +1,15 @@
+@import './variables';
+
+@mixin text ($font-family,$font-size,  $line-height,$textColor) {
+  font-family: $font-family, sans-serif;
+  font-size: $font-size;
+  line-height:  $line-height;
+  color: $textColor;
+}
+
+@mixin flex ($justify,$align,$direction) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+}

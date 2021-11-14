@@ -1,6 +1,11 @@
+import {useEffect} from "react";
 
 
- const Finalize = () => {
+const Finalize = () => {
+
+    useEffect(() => {
+        document.title = 'Finalize'
+    }, [])
     return (
         <div>Finalize</div>
     )

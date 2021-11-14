@@ -1,9 +1,0 @@
-.container {
-  width: 1000px;
-  margin: 60px auto;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  padding: 40px;
-  background: #FAFAFA;
-}

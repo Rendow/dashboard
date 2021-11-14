@@ -1,5 +1,5 @@
 import React, {lazy, Suspense } from 'react';
-import './App.css';
+import './App.scss';
 import {NavLink, Route} from "react-router-dom";
 import {Preloader} from "./common/Preloader/Preloader";
 import { Redirect } from 'react-router-dom';

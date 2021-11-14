@@ -1,0 +1,13 @@
+@import "/src/common/styles/mixins";
+@import "/src/common/styles/variables";
+
+.container {
+  width: 1000px;
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 40px;
+  background: $backgroundColor;
+  @include text('Roboto',13px,1,$textColor);
+}

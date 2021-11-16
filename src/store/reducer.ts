@@ -15,17 +15,11 @@ export type InitialStateType =  {
         tests:TestType[],
         sites:Site[],
 }
-export type ActionType = ReturnType<typeof setTestsAC>
-   | ReturnType<typeof setTestAC>
-   | ReturnType<typeof setSitesAC>
-    | ReturnType<typeof setSiteAC>
+export type ActionType = ReturnType<typeof setTestsAC> | ReturnType<typeof setSitesAC>
 
 // actions
 export const setTestsAC = (data:TestType[]) => ({ type: 'SET-TESTS',data } as const);
-export const setTestAC = (data:TestType) => ({ type: 'SET-TEST',data } as const);
-
 export const setSitesAC = (data:Site[]) => ({ type: 'SET-SITES',data } as const);
-export const setSiteAC = (data:Site ) => ({ type: 'SET-SITE',data } as const);
 
 
 export function reducer(state: InitialStateType, action: ActionType):InitialStateType {
@@ -36,20 +30,10 @@ export function reducer(state: InitialStateType, action: ActionType):InitialStat
                 ...state,
                 tests: action.data
             }
-        case "SET-TEST":
-            return {
-                ...state,
-                tests:[action.data]
-            }
         case "SET-SITES":
             return {
                 ...state,
                    sites:action.data
-            }
-        case "SET-SITE":
-            return {
-                ...state,
-                sites:[action.data]
             }
 
         default:

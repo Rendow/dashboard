@@ -2,7 +2,7 @@ import {StateContext} from "../../store/ContextProvider";
 import {setSitesAC, setTestsAC} from "../../store/reducer";
 import s from './dashboard.module.scss'
 import {API} from "../../api/api";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import searchIcon from "../../common/img/search.png";
 import {FilterBar} from "./FilterBar/FilterBar";
 import {Test, TestTypeWithUrl} from "./Test/Test";
@@ -13,7 +13,7 @@ export  const Dashboard = () => {
     const [text,setText] = useState('')
     const [type,setType] = useState('name')
     const [sortDirection,setSortDirection] = useState(true)
-
+    let ref = useRef<HTMLLIElement | null>(null)
 
     useEffect(() => {
         document.title = 'Dashboard'
@@ -144,8 +144,8 @@ export  const Dashboard = () => {
                 ? <>
                 <FilterBar sortDirection={sortDirection} setSortDirection={setSortDirection}  setType={setType} />
                 <ul>{search
-                    .map(obj => {
-                    return <li key={obj.id}>
+                    .map((obj,index) => {
+                    return <li tabIndex={index} ref={ref} key={obj.id}>
                         <Test id={obj.id}
                               type={obj.type}
                               status={obj.status}

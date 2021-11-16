@@ -30,7 +30,7 @@ const Finalize = () => {
     }, [])
 
     return (
-        <div className={s.finalizeWrap}>
+        <div className={s.wrap}>
             <div className={s.titleBlock}>
                 <span>Finalize</span>
                 <span className={s.test}> {test && test.name}</span>

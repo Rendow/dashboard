@@ -1,43 +1,19 @@
 import {StateContext} from "../../store/ContextProvider";
-import {setSitesAC, setTestsAC, TestType} from "../../store/reducer";
+import {setSitesAC, setTestsAC} from "../../store/reducer";
 import s from './dashboard.module.scss'
 import {API} from "../../api/api";
-import React, {useEffect} from "react";
-import {NavLink} from "react-router-dom";
-import classNames from "classnames";
+import React, {useEffect, useState} from "react";
+import searchIcon from "../../common/img/search.png";
+import {FilterBar} from "./FilterBar/FilterBar";
+import {Test, TestTypeWithUrl} from "./Test/Test";
 
 export  const Dashboard = () => {
     const {dispatch} = StateContext()
-    const {tests} = StateContext()
+    const {tests,sites} = StateContext()
+    const [text,setText] = useState('')
+    const [type,setType] = useState('name')
+    const [sortDirection,setSortDirection] = useState(true)
 
-    const showContent = tests.length
-    // const mappedTests = tests.map(t => {
-    //     let type;
-    //     if (t.type === 'CLASSIC') {
-    //         type = 'Classic'
-    //     } else if (t.type === 'SERVER_SIDE') {
-    //         type = 'Server-side'
-    //     } else {
-    //         type = 'MVT'
-    //     }
-    //
-    //     return {
-    //         id: t.id,
-    //         name: t.name,
-    //         type: type,
-    //         status: t.status,
-    //         siteId: t.siteId
-    //     }
-    // })
-    const sortedTests = tests.slice().sort((a, b) => {
-        if (a.name > b.name) {
-            return 1;
-        }
-        if (a.name < b.name) {
-            return -1;
-        }
-        return 0;
-    });
 
     useEffect(() => {
         document.title = 'Dashboard'
@@ -63,20 +39,119 @@ export  const Dashboard = () => {
 
     }, [])
 
+    let regExpSites = sites.map(s => {
+        let newUrl = s.url.replace(/\b((www\.)|(https:\/\/)|(http:\/\/))\b/g, '')
+        return {id: s.id, url: newUrl}
+    })
+    let testsWithUrl = tests.map(t => {
+        let modifyStatus = t.status.charAt(0) + t.status.toLowerCase().slice(1)
+        let url = regExpSites.find(s => s.id === t.siteId)
+        return {
+            id: t.id,
+            name: t.name,
+            type: t.type,
+            status: modifyStatus,
+            siteId: t.siteId,
+            url: url && url.url,
+            urlId: url && url.id
+        }
+    })
+    let sortedTests = [] as TestTypeWithUrl []
+
+
+    function sortFunction(left: (undefined | string), right: (undefined | string)) {
+        if (left && right) {
+            if (sortDirection) {
+                if (left > right) {
+                    return 1;
+                }
+                if (left < right) {
+                    return -1;
+                }
+                return 0;
+            } else {
+                if (left < right) {
+                    return 1;
+                }
+                if (left > right) {
+                    return -1;
+                }
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    const sortTestsByType = function (type:string){
+        switch (type){
+            case 'name':
+                return sortedTests = testsWithUrl.sort((a, b) => {
+                   let left = a.name
+                   let right = b.name
+                    return sortFunction(left, right);
+                });
+            case 'type':
+                return sortedTests = testsWithUrl.sort((a, b) => {
+                    let left = a.type
+                    let right = b.type
+                    return sortFunction(left, right);
+                });
+            case 'url':
+                return sortedTests = testsWithUrl.sort((a, b) => {
+                    let left  = a.url;
+                    let right = b.url
+                    return sortFunction(left,right);
+                });
+            case 'status':
+                return sortedTests = testsWithUrl.sort((a, b) => {
+                    let priority = ['Online','Paused','Stopped','Draft'];
+                    let indexA = priority.indexOf(a.status)
+                    let indexB = priority.indexOf(b.status)
+                    if(sortDirection) {
+                        return  indexA > indexB ? 1 : -1
+                    } else {
+                        return  indexA < indexB ? 1 : -1
+                    }
+                });
+            default:
+                throw new Error()
+
+        }
+
+    }
+    sortTestsByType(type)
+
+    let search = sortedTests.filter(t => {
+     return [text].every(el => t.name.toLowerCase().includes(el))
+    })
+
 
     return (
         <main className={s.dashboard}>
             <h1>Dashboard </h1>
-            <input type="text"/>
-            {showContent
-            && <>
-               <FilterBar/>
-                <ul>{sortedTests.map(obj => {
+            <div className={s.inputWrap}>
+                <input
+                    style={{backgroundImage:`url(${searchIcon})`}}
+                    placeholder={'What test are you looking for?'}
+                    value={text}
+                    onChange={(e)=>{setText(e.currentTarget.value)}}
+                    type="text" />
+                <div className={s.testCount}>{search.length} tests</div>
+            </div>
+
+            {search.length > 0
+                ? <>
+                <FilterBar sortDirection={sortDirection} setSortDirection={setSortDirection}  setType={setType} />
+                <ul>{search
+                    .map(obj => {
                     return <li key={obj.id}>
                         <Test id={obj.id}
                               type={obj.type}
                               status={obj.status}
                               siteId={obj.siteId}
+                              url={obj.url}
+                              urlId={obj.urlId}
                               name={obj.name}
                               key={obj.id} />
                     </li>
@@ -84,77 +159,16 @@ export  const Dashboard = () => {
                 })}
                 </ul>
             </>
+                :
+                <div>
+                    <div className={s.noResult}>
+                    <span>Your search did not match any results.</span>
+                    <button onClick={()=>{setText('')}}>Reset</button>
+                </div>
+                </div>
             }
         </main>
     )
 }
 
 
-const FilterBar = () => {
-  return (
-      <div className={s.filterBar}>
-          <div>
-              <button>name</button>
-          </div>
-          <div>
-              <button>type</button>
-          </div>
-          <div>
-              <button>state</button>
-          </div>
-          <div>
-              <button>site</button>
-          </div>
-      </div>
-  )
-}
-
-const Test = React.memo(({id, status, siteId, type, name}: TestType) => {
-    const {sites} = StateContext()
-
-    let regExpSites = sites.map(s => {
-        let newUrl = s.url.replace(/\b((www\.)|(https:\/\/)|(http:\/\/))\b/g, '')
-        return {id: s.id, url: newUrl}
-    })
-
-
-    let modifyType;
-    switch (type) {
-        case 'CLASSIC':
-            modifyType = 'Classic'
-            break;
-        case 'SERVER_SIDE':
-            modifyType = 'Server-side'
-            break;
-        case 'MVT':
-            modifyType = 'MVT'
-            break;
-        default:
-            throw new Error()
-    }
-
-    let modifyStatus = status.charAt(0) + status.toLowerCase().slice(1)
-    let site = sites.length && regExpSites.find(s => s.id === siteId)
-
-
-    return (
-        <section className={s.test}>
-            <div className={s.name}> {name}</div>
-            <div className={s.type}> {modifyType}</div>
-            <div  className={classNames(s.status,{
-            [s.red]: status === 'STOPPED',
-            [s.green]: status === 'ONLINE',
-            [s.orange]: status === 'PAUSED',
-            })}> {modifyStatus}</div>
-            <div className={s.site}> {site && site.url}</div>
-            {id % 2
-                ?  <NavLink style={{background: '#2EE5AC'}} className={s.nav} to="/result">Result</NavLink>
-                :  <NavLink style={{background: '#7D7D7D'}} className={s.nav} to="/finalize">Finalize</NavLink>
-            }
-        </section>
-    )
-})
-
-//todo локига фильтрации по алфавиту name, type and site ( в компоненте после получения данных),
-// фильтрация status - ASC: Online, Paused, Stopped, Draft DESC: Draft, Stopped, Paused, Online
-// фильтрация по поиску

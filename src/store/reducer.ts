@@ -1,17 +1,4 @@
 
-enum Type {
-    CLASSIC = "CLASSIC",
-    SERVER_SIDE = "SERVER_SIDE",
-    MVT = "MVT"
-}
-
-enum Status {
-    DRAFT = "DRAFT",
-    ONLINE = "ONLINE",
-    PAUSED = "PAUSED",
-    STOPPED = "STOPPED",
-}
-
 export type Site = {
     id: number,
     url: string
@@ -26,7 +13,7 @@ export type TestType = {
 
 export type InitialStateType =  {
         tests:TestType[],
-        sites:Site[]
+        sites:Site[],
 }
 export type ActionType = ReturnType<typeof setTestsAC>
    | ReturnType<typeof setTestAC>
@@ -64,6 +51,7 @@ export function reducer(state: InitialStateType, action: ActionType):InitialStat
                 ...state,
                 sites:[action.data]
             }
+
         default:
             throw new Error();
     }

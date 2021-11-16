@@ -1,0 +1,98 @@
+@import "/src/common/styles/mixins";
+@import "/src/common/styles/variables";
+
+.test {
+  height: 70px;
+  display: flex;
+  background: $TestBackgroundColor;
+  border-radius: 3px;
+  &:hover {
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+  }
+  .bookmark{
+    position: relative;
+
+    &::before{
+      content: '';
+      width: 4px;
+      height: 100%;
+      background: #4e93e6;
+      position: absolute;
+      left: -10px;
+      right: 0;
+      bottom: 0;
+      top: -35px;
+      transform: translate(-50%, 50%);
+      border-radius: 3px 0px 0px 3px;
+
+    }
+  }
+
+  &:nth-child(1){
+    padding-left: 12px;
+  }
+  div{
+    align-items: center;
+    display: flex;
+  }
+
+  .name {
+    width: 400px;
+    font-weight: 500;
+  }
+
+  .type {
+    width: 137px;
+  }
+
+  .status {
+    width: 132px;
+    font-weight: 500;
+  }
+
+  .site {
+    width: 160px;
+  }
+
+  .nav {
+    @include flex(center, center, row);
+    align-self: center;
+    margin: 20px 12px 20px;
+    width: 95px;
+    flex-grow: 1;
+    height: 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-family: $titleFontFamily;
+    color: #FFFFFF;
+    &:visited{
+      color: #FFFFFF;
+    }
+
+  }
+  .red{
+    color: #FE4848;
+  }
+  .green{
+    color: #1BDA9D;
+  }
+  .orange{
+    color: #FF8346;
+  }
+  .crimson{
+    &::before{
+      background: #E14165;
+    }
+  }
+  .purple{
+    &::before{
+      background: #8686FF;
+    }
+  }
+  .violet{
+    &::before{
+      background: #C2C2FF;
+    }
+  }
+}

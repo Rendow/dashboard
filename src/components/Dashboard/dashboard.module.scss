@@ -2,119 +2,66 @@
 @import "/src/common/styles/variables";
 
 .dashboard {
-  margin-top: 90px;
-  border: 1px solid black;
-  @include flex(center, center, column);
-
+  @include flex(unset, center, column);
+  min-height: 660px;
   h1 {
-    @include text($titleFontFamily, 24, 1,$titleTextColor);
-    font-size: 26px;
+    @include text($titleFontFamily, 26px, 1,$titleTextColor);
     font-weight: 700;
     align-self: flex-start;
     margin-left: 23px;
   }
+  .inputWrap{
+    position: relative;
+    input {
+      margin: 20px 0;
+      padding-left: 40px;
+      background: #FFFFFF;
+      border: 1px solid #EBEBEB;
+      border-radius: 15px;
+      height: 45px;
+      width: 877px;
+      background: no-repeat 4px 7px ;
+      background-size: 30px;
+      font-size: 14px;
 
-  input {
-    margin: 20px 0;
-    background: #FFFFFF;
-    border: 1px solid #EBEBEB;
-    border-radius: 15px;
-    height: 45px;
-    width: 877px;
+    }
+    .testCount{
+      @include text($secondFontFamily, 14px, 1,#D1D1D1);
+      content: '';
+      position: absolute;
+      top: 36px;
+      right: 16px;
+    }
   }
 
+
   ul {
-    border: 1px solid black;
     @include flex(center, center, column);
     width: 100%;
 
     li {
-      margin: 10px;
-      border: 1px solid black;
+      margin-bottom: 5px;
       width: 95%;
 
     }
   }
-}
+  .noResult{
+    min-height: 530px;
+    @include flex(space-around, center, column);
+    @include text($titleFontFamily, 24px, 1,$titleTextColor);
+    padding-bottom: 350px;
 
-.filterBar {
-  width: 100%;
-  @include flex(space-between, center, row);
-  div{
     button{
-      text-transform: uppercase;
-      font-size: 11px;
-      color: #999999;
-      background-color: inherit;
-    }
-    display: flex;
-    &:nth-child(1){
-      flex-grow: 1;
-      padding-left: 25px;
-    }
-    &:nth-child(2){
-      width: 129px;
-    }
-    &:nth-child(3){
-      width: 124px;
-    }
-    &:nth-child(4){
-      width: 277px;
-    }
-  }
-
-}
-.test {
-  height: 70px;
-  display: flex;
-  background: $TestBackgroundColor;
-  border-radius: 3px;
-
-  div{
-    align-items: center;
-    display: flex;
-  }
-
-  .name {
-    width: 400px;
-    font-weight: 500;
-  }
-
-  .type {
-    width: 137px;
-  }
-
-  .status {
-    width: 132px;
-    font-weight: 500;
-  }
-
-  .site {
-    width: 160px;
-  }
-
-  .nav {
-    @include flex(center, center, row);
-    align-self: center;
-    margin: 20px 12px 20px;
-    width: 95px;
-    flex-grow: 1;
-    height: 30px;
-    border-radius: 10px;
-    font-weight: 600;
-    font-family: $titleFontFamily;
-    &:visited{
+      height: 30px;
+      width: 95px;
+      background: #1BDA9D;
       color: #FFFFFF;
+      font-size: 12px;
+      font-weight: 600;
+      align-items: center;
+      text-align: center;
+      border-radius: 10px;
     }
-
-  }
-  .red{
-    color: #FE4848;
-  }
-  .green{
-    color: #1BDA9D;
-  }
-  .orange{
-    color: #FF8346;
   }
 }
+

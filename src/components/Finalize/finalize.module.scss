@@ -1,0 +1,45 @@
+@import "/src/common/styles/mixins";
+@import "/src/common/styles/variables";
+
+
+.wrap {
+  min-height: 660px;
+  @include flex(space-between, baseline, column);
+  @include text($titleFontFamily, 26px, 1, $titleTextColor);
+  font-weight: bold;
+
+  .titleBlock {
+    margin: 41px 0 0 48px;
+    @include flex(unset, center, column);
+    span{
+      align-self: flex-start;
+    }
+    .test{
+      margin-top: 10px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+  }
+  a{
+    padding-left: 10px;
+    margin: 0 0 44px 66px;
+    font-size: 18px;
+    position: relative;
+    color: $titleTextColor;
+    &:visited{
+      color: $titleTextColor;
+    }
+    div{
+      position: absolute;
+      content: '';
+      top: 2px;
+      left: -37px;
+      height: 28px;
+      width: 33px;
+      padding: 0;
+      background: no-repeat ;
+      background-size: 17px;
+      transform: rotate(90deg);
+    }
+  }
+}

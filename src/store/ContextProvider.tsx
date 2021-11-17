@@ -27,7 +27,20 @@ const defaultState = {
             },
 
         ],
-    sites:[],
+    sites:[
+        {
+            "id": 1,
+            "url": "https://market.company.com"
+        },
+        {
+            "id": 2,
+            "url": "https://www.delivery.company.com"
+        },
+        {
+            "id": 3,
+            "url": "http://games.company.com"
+        }
+    ],
 
 };
 export const Context = createContext <(InitialStateType &

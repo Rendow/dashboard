@@ -4,16 +4,14 @@ import { NavLink } from 'react-router-dom';
 import s from './test.module.scss'
 
 
-export type TestTypeWithUrl = {
+export type TestTypeWithUrl =  {
     id: number;
     name: string;
     type: string;
     status: string;
-    siteId:number;
     url: string | undefined
-    urlId:number | undefined
 }
-export const Test = React.memo(({id, status, type, name,url,urlId}: TestTypeWithUrl) => {
+export const Test = React.memo(({id, status, type, name,url,index}: TestTypeWithUrl  & { index: number }) => {
 
     let modifyType;
     switch (type) {
@@ -48,8 +46,8 @@ export const Test = React.memo(({id, status, type, name,url,urlId}: TestTypeWith
             })}> {status}</div>
             <div className={s.site}> {url}</div>
             {id % 2
-                ?  <NavLink style={{background: '#2EE5AC'}} className={s.nav} to={"/result/" + id}>Result</NavLink>
-                :  <NavLink style={{background: '#7D7D7D'}} className={s.nav} to={"/finalize/" + id}>Finalize</NavLink>
+                ?  <NavLink tabIndex={index} style={{background: '#2EE5AC'}} className={s.nav} to={"/result/" + id}>Result</NavLink>
+                :  <NavLink tabIndex={index} style={{background: '#7D7D7D'}} className={s.nav} to={"/finalize/" + id}>Finalize</NavLink>
             }
         </section>
     )

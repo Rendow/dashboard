@@ -132,6 +132,7 @@ export  const Dashboard = () => {
             <h1>Dashboard </h1>
             <div className={s.inputWrap}>
                 <input
+                    tabIndex={1}
                     style={{backgroundImage:`url(${searchIcon})`}}
                     placeholder={'What test are you looking for?'}
                     value={text}
@@ -145,13 +146,12 @@ export  const Dashboard = () => {
                 <FilterBar sortDirection={sortDirection} setSortDirection={setSortDirection}  setType={setType} />
                 <ul>{search
                     .map((obj,index) => {
-                    return <li tabIndex={index} ref={ref} key={obj.id}>
+                    return <li  ref={ref} key={obj.id}>
                         <Test id={obj.id}
                               type={obj.type}
                               status={obj.status}
-                              siteId={obj.siteId}
+                              index={index+1}
                               url={obj.url}
-                              urlId={obj.urlId}
                               name={obj.name}
                               key={obj.id} />
                     </li>

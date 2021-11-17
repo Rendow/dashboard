@@ -1,7 +1,6 @@
 @import "/src/common/styles/mixins";
 @import "/src/common/styles/variables";
 
-
 .wrap {
   min-height: 660px;
   @include flex(space-between, baseline, column);
